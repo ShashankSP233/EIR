@@ -5,7 +5,6 @@ import smtplib
 from email.mime.base import MIMEBase
 from email.message import EmailMessage
 from email import encoders
-from os.path import basename
 
 #define sender and recipient email addresses
 sender = "sender@example.com" #senders email id
@@ -18,7 +17,9 @@ message = EmailMessage()
 message['From'] = sender
 message['To'] = recipient
 message['Subject'] = 'CODE BLUE [ EMERGENCY (SOS) ]'
-message.set_content('Its an Emergency. Please respond fast!!. I am attaching you the gps location and an video file')
+message.set_content('''Its an Emergency!\n
+I am attaching you the GPS location and a 15 seconds Video file.\n
+Resopnd ASAP!''')
 
 #.....Attaching video and location file.....
 

@@ -1,28 +1,26 @@
-#Use to record and store a video 
+import cv2  #importing cv2 module
 
-import numpy as ny  #importing numpy library
-import cv2  #importing cv2 library
-
+# Set up video capture device
 cap = cv2.VideoCapture(0)
 
-fourcc = cv2.VideoWriter_fourcc(*'XVID')    #writer object
-'''
-   Name of File : Video_Output.mp4     
-   Frame per second (fps) : 30        
-   Resolution : 845,480
-'''
-out = cv2.VideoWriter("Video_Output.mp4",fourcc,30.0,(845,480))
+# Define codec and create VideoWriter object
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+out = cv2.VideoWriter('Video_Output.mp4', fourcc, 25.0, (640, 480))
 
-while (cap.isOpened()):
+# Record video for 15 seconds
+duration = 15  # seconds
+start_time = cv2.getTickCount()
+while True:
+    # Capture frame-by-frame
     ret, frame = cap.read()
-    if (ret==True):
-        out.write(frame)    #write frame if capture
-        cv2.imshow('Output',frame)
-        if(cv2.waitKey(1) & 0XFF == ord('q')): 
-            #if user press the key 'q' the video will end 
-            break
-    else:
+    # Write frame to output video
+    out.write(frame)
+    # Check if recording time has reached the desired duration
+    elapsed_time = (cv2.getTickCount() - start_time) / cv2.getTickFrequency()
+    if elapsed_time >= duration:
         break
 
+# Release video capture device and video writer
 cap.release()
+out.release()
 cv2.destroyAllWindows()
