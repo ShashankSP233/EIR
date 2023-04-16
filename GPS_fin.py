@@ -1,13 +1,13 @@
 import requests
 
-url = 'https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_API_KEY'
-headers = {'content-type': 'application/json'}
-data = {'considerIp': 'true'}
+ip = ''  # Replace with your own IP address or leave blank to use your current IP
+url = f'https://freegeoip.app/json/{ip}'
+response = requests.get(url)
 
-response = requests.post(url, json=data, headers=headers)
-location = response.json()['location']
-lat, lng = location['lat'], location['lng']
+data = response.json()
+latitude = data['latitude']
+longitude = data['longitude']
+print(f'Latitude: {latitude}, Longitude: {longitude}')
+f1=open("GPS_Location.txt","w")
 
-f= open("GPS_Location.txt","w")
-data = [lat,lng]
-f.write(data)
+f1.write(f'Latitude: {latitude}, Longitude: {longitude}')

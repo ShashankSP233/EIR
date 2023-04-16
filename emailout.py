@@ -2,10 +2,8 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
-from email.message import EmailMessage
 from email import encoders
 import os.path
-
 
 
 def send_email(email_recipient,
@@ -20,11 +18,7 @@ def send_email(email_recipient,
     msg['To'] = email_recipient
     msg['Subject'] = email_subject
 
-    msg.attach(MIMEText(email_message+'\n', 'plain'))
-
-    with open('GPS_Location.txt','r') as f:
-        file_data = f.read()
-        msg.attach(MIMEText(file_data, 'plain'))
+    msg.attach(MIMEText(email_message, 'plain'))
 
     if attachment_location != '':
         filename = os.path.basename(attachment_location)
@@ -50,6 +44,6 @@ def send_email(email_recipient,
     return True
 
 send_email('eirprimeconsole@gmail.com',
-           'SOS EMERGENCY',
-           'there has been a accident help reqired \nI am attaching you the GPS location and a 15 seconds Video file.\nResopnd ASAP!' 
+           'Here is your video',
+           'We love Outlook' 
            )
